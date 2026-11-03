@@ -11,7 +11,8 @@ import numpy as np
 
 
 def vertex(x, y):
-    """Peak (or trough) of the parabola through the points, as (x, y)."""
+    """Peak (or trough) of the best-fit parabola through the points. Returns (x at the vertex, y at the vertex,
+    the parabola's coefficients)."""
     c = np.polyfit(x, y, 2)
     xv = -c[1] / (2 * c[0])
     return xv, np.polyval(c, xv), c

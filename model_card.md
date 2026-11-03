@@ -87,7 +87,7 @@ The data covers Weeks 6 to 13 and excludes F1, whose predictions are on a differ
 
 ## Ethical considerations
 
-- **Transparency supports reproducibility.** Every weekly data snapshot is kept unchanged, the Random Forest seed is fixed (42), and each weekly choice is explained in `CHANGELOG.md`. Some of the final-round searches were run as separate working scripts that are not yet in the repository, so a week's picks cannot be regenerated exactly from the main script alone.
+- **Transparency supports reproducibility.** Every weekly data snapshot is kept unchanged, the Random Forest seed is fixed (42), and each weekly choice is explained in `CHANGELOG.md`. The final-round searches were run as separate scripts, which are in `scripts/`, so a week's picks from Week 8 onwards come from those scripts and not from the main pipeline alone.
 - **Honest reporting.** The wasted duplicate queries, the Random Forest's failure on F4, the overconfident predictions and the points where a method did not work are documented and not hidden, so anyone adapting the method can see where it breaks.
 - **Real-world adaptation.** The same loop could tune lab experiments, manufacturing settings or model hyperparameters, where a bad query has real costs in materials, time, energy or safety. Stating the limits above means the approach is not trusted beyond what it has shown, and the human review step should be kept.
 - **No personal data.** The data is purely numeric and synthetic, so privacy and fairness risks are minimal for this project.

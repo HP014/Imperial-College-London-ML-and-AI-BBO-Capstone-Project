@@ -17,20 +17,29 @@ from data_io import load_week  # noqa: E402
 
 
 def local_fit(data, f, n_near):
+    """Fit the bowl to function f's n_near points nearest its best point, and print the fit, its leave-one-out
+    error and its peak."""
+    # The n_near points nearest the best, shifted so the best point sits at the origin
     X, y = data[f]
     b = X[np.argmax(y)]
     d = np.linalg.norm(X - b, axis=1)
     idx = np.argsort(d)[:n_near]
     Z = X[idx] - b
     t = y[idx]
+
+    # Least-squares fit of y = c + g.x + a|x|^2 (columns: constant, each input, squared distance); k = -a
     A = np.column_stack([np.ones(len(Z)), Z, (Z ** 2).sum(1)])
     coef, *_ = np.linalg.lstsq(A, t, rcond=None)
+
+    # Leave-one-out: refit without each point in turn and record the error predicting that point
     errs = []
-    for j in range(len(idx)):  # leave one out
+    for j in range(len(idx)):
         m = np.ones(len(idx), bool)
         m[j] = False
         cf, *_ = np.linalg.lstsq(A[m], t[m], rcond=None)
         errs.append(A[j] @ cf - t[j])
+
+    # The bowl's peak is at x = g / 2k from the best point; it only has a peak if k > 0 (it curves downwards)
     g, k = coef[1:-1], -coef[-1]
     peak = b + g / (2 * k) if k > 0 else None
     print(f"\nF{f}: n_near={n_near} radius={d[idx].max():.3f} params={A.shape[1]} k={k:.3f}  "
@@ -46,6 +55,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     parser.add_argument("--week", type=int, default=11, help="week of data to use (default: 11)")
     data = load_week(parser.parse_args().week)
+    # Each function is fitted with three neighbourhood sizes, to see whether the result depends on that choice
     for f, ns in ((3, (8, 10, 12)), (4, (10, 14, 18)), (6, (10, 14, 18))):
         for n in ns:
             local_fit(data, f, n)

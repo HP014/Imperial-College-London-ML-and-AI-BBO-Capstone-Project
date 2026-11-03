@@ -19,6 +19,7 @@ from paths import latest_week  # noqa: E402
 
 
 def main():
+    # Read the --week option and load the data before and after that week's queries
     parser = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     parser.add_argument("--week", type=int, default=None, help="week whose queries to check (default: the latest)")
     week = parser.parse_args().week or latest_week()
@@ -26,9 +27,10 @@ def main():
 
     for f in range(1, 9):
         X, y = before[f]
-        q = after[f][0][-1]
-        d = np.linalg.norm(X - q, axis=1)
-        b = X[np.argmax(y)]
+        q = after[f][0][-1]  # this week's query: the last input row of the week's data
+        d = np.linalg.norm(X - q, axis=1)  # distance from the query to every earlier point
+        b = X[np.argmax(y)]  # the best point before this week
+        # One line per function: nearest earlier point, distance from the best, and the two range checks
         print(f"F{f}: nearest sampled {d.min():.4f} | distance from best {np.linalg.norm(q - b):.4f} | "
               f"in [0,1]: {bool(np.all((q >= 0) & (q <= 1)))} | portal range 0 to 0.999999: "
               f"{bool(np.all((q >= 0) & (q <= 0.999999)))}")

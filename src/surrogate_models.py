@@ -1,9 +1,10 @@
 """
-Alternative surrogate models for Bayesian optimization, for use alongside the
-Gaussian Process models in pipeline.py. Each fit_* function returns
-a fitted model; each predict_* function returns (mean, std) so the existing
-acquisition functions (upper_confidence_bound, expected_improvement) in
-plotting_utils.py can be reused unchanged.
+The Random Forest surrogate (a second opinion alongside the Gaussian Process in
+pipeline.py), and the log transform used for F1.
+
+fit_random_forest_surrogate returns a fitted model, and random_forest_predict
+returns (mean, std), so the same acquisition functions (upper_confidence_bound,
+expected_improvement) in plotting_utils.py can score its predictions.
 """
 
 import numpy as np

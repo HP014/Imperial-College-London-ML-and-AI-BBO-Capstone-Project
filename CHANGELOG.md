@@ -333,6 +333,5 @@ So far improvements have been seen. The configurations for F1 and F7 need experi
 
 ## Week 1 - Strategy Notes
 
-I fitted a GP for each function, with kernels chosen by dimension (RBF for F1 and F2, Matern 2.5 for F3 and F4, Matern 1.5 for F5 to F8), and scored 10,000 random candidate points with UCB and EI. κ followed a simple rule by dimension (1.5 for the 2D functions, 2.0 for F3 to F5, 2.5 for F6 to F8) with ξ at 0.01 for all. The chat first suggested manual or random queries, but the points submitted came from the GP.
-
+I fitted a GP for each function, with kernels chosen by dimension (RBF for F1 and F2, Matern 2.5 for F3 and F4, Matern 1.5 for F5 to F8), and scored 10,000 random candidate points with UCB and EI. κ followed a simple rule by dimension (1.5 for the 2D functions, 2.0 for F3 to F5, 2.5 for F6 to F8) with ξ at 0.01 for all.
 **Observations across Weeks 1 to 5:** F1 stayed flat throughout, and F2 never beat its starting 0.6112. F5's peak came in Week 1. The repeated queries (F1 Weeks 3 and 4, F4 Week 4, F5 Weeks 3 and 4) happened because UCB and EI kept proposing known points and I followed them, which led to the duplicate safeguard added later. An F1 print statement said κ=0.01 while the code used 1.5, which turned out to be a typo in the label.

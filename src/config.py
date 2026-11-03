@@ -6,6 +6,9 @@ sparser data and are less predictable. The length scale is only a starting point
 kappa (UCB) and xi (EI): set by a starting rule based on dimension (kappa 1.5 for 2D, 2.0 for F3 to F5, 2.5 for F6
 to F8, xi 0.01), then adjusted by judgement. README.md has the table of values and the reasons, and CHANGELOG.md
 has the weekly reasoning. fit_label is the text printed when the Gaussian Process is fitted.
+
+These settings are used by src/pipeline.py (the method for Weeks 1 to 7). The Week 8 onwards exploit search in
+scripts/exploit_search.py does not read them: it uses one Matern 2.5 kernel for every function.
 """
 
 N_CANDIDATES = 10000  # random candidate points scored per function (coarse in 8 dimensions)

@@ -18,20 +18,23 @@ from data_io import load_week  # noqa: E402
 from plotting_utils import local_candidates  # noqa: E402
 from surrogate_models import fit_random_forest_surrogate, random_forest_predict  # noqa: E402
 
-warnings.filterwarnings("ignore")
+warnings.filterwarnings("ignore")  # hide library warnings so the output stays readable
 
 
 def main():
+    # Read the --week option and load that week's data
     parser = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     parser.add_argument("--week", type=int, default=None, help="week of data to use (default: the latest)")
     data = load_week(parser.parse_args().week)
 
     for f in (2, 5, 7, 8):
+        # Fit the pipeline's Random Forest (200 trees, seed 42) and predict 20,000 points in the box
         X, y = data[f]
         b = X[np.argmax(y)]
         rf = fit_random_forest_surrogate(X, y)
         c = local_candidates(b, half_width=0.02)
         m, s = random_forest_predict(rf, c)
+        # Count the distinct predictions (a forest gives the same value across whole regions) and the mean spread
         print(f"F{f}: RF over 20,000 candidates in the +-0.02 box -> {len(np.unique(np.round(m, 6)))} distinct "
               f"predicted values; range {m.min():.4f} to {m.max():.4f} (best {y.max():.4f}); mean std {s.mean():.4f}")
 
