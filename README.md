@@ -1,9 +1,9 @@
 # Bayesian Optimisation of Eight Black-Box Functions
 
-## NON-TECHNICAL EXPLANATION OF YOUR PROJECT
+## Non-technical explanation
 Imagine eight mystery machines. For each one you pick the settings on a few dials, between two and eight of them, and the machine reports a score. The aim is to find the settings that give the highest score, but you only get one try per machine each week, so every try has to count. This project uses machine learning to study the results so far and suggest which settings to try next, balancing careful tweaks to the best settings with bold tests of unfamiliar ones. Over thirteen weeks the best score for every machine improved, in some cases several times over.
 
-## DATA
+## Data
 The data comes from eight unknown "black-box" functions that I could only learn about by querying them. Each week I submitted one input for each function and received its output.
 
 **Source and attribution:** the eight functions and the initial data points were supplied by the course material of the Imperial College London Department of Computing and Imperial Executive Education, Professional Certificate in Machine Learning and Artificial Intelligence, Black-Box Optimisation Capstone Project. The initial points came as NumPy files (`initial_inputs.npy` and `initial_outputs.npy` for each function), described in Mini-lesson 12.8 of the course. They are small, so they are stored in this repository: the first rows of each function's arrays in `data/` are those initial points (10, 10, 15, 30, 20, 20, 30 and 40 rows), and they remain the course's material. The rows after them are my own weekly queries and the outputs the course returned.
@@ -42,7 +42,7 @@ Source: Mini-lesson 12.8 of the course (descriptions paraphrased). The array siz
 
 See `data_sheet.md` for the full datasheet.
 
-## INPUTS, OUTPUTS AND CHALLENGE OBJECTIVES
+## Inputs, outputs and challenge objectives
 **Inputs.** Each week I submitted one query per function, written as x1-x2-...-xn. Every value has exactly six decimal places and starts with 0, and values are separated by hyphens with no spaces. For example, F2's best query is `0.699500-0.909500` and F3's is `0.401915-0.392969-0.455665`. Functions have between 2 and 8 inputs. The course gives 0.000000 to 0.999999 as the valid range (see the note on the input range in the Results section).
 
 **Outputs.** Each query returns one number for that function, which can be positive or negative and is not bounded. F3 and F6 are negative by design, because they measure side effects or penalties. After each round the course returned my input and its output, plus the cumulative arrays.
@@ -58,7 +58,7 @@ See `data_sheet.md` for the full datasheet.
 
 **Why it matters for my career.** The project builds skills I expect to use in any ML role: making decisions with scarce data, justifying each choice, and checking a model's confidence against real outcomes. These apply directly to hyperparameter tuning and experiment design, where every evaluation costs time or money.
 
-## MODEL
+## Model
 I used **Bayesian optimisation**: fit a model to the points so far, then use it to choose the next point to query.
 
 **Why Bayesian optimisation:**
@@ -80,7 +80,7 @@ I used **Bayesian optimisation**: fit a model to the points so far, then use it 
 
 The model card (`model_card.md`) has the details, limitations and trade-offs. The section below gives the evidence behind each choice.
 
-## KEY DECISIONS AND WHY
+## Key decisions and why
 Each decision below comes with the evidence and what it cost. The week is when the change was made. The full reasoning for every weekly query is in `CHANGELOG.md`.
 
 - **Week 6: added a Random Forest as a second surrogate.** I had only used a GP. For F1 the GP kept returning to the same flat corners whatever the kernel or kappa. For F5 it had no signal far from the data (mean 0, std 316), while the Random Forest's prediction of 2478.8 landed near my best known point. The cost was that the Random Forest extrapolated noise for F4 (mean -6.65, std 8.71, against observed values of -1.28 to 0.37), so I ignored it there.
@@ -94,7 +94,7 @@ Each decision below comes with the evidence and what it cost. The week is when t
 - **Week 9: left kappa and xi unchanged.** In a ±0.02 box, moving kappa from 0 to 2 shifted most picks by under 0.03 and cost a small amount of predicted value. F4 did not move at all. Box size mattered more, and every function was improving. My plan was to widen the box to ±0.04 to ±0.08 and add a small kappa if a function stalled for about two weeks. When F4 and F6 later slowed, I used line searches and half steps instead (next point).
 - **Weeks 10 to 12: used line searches and half steps for F4 and F6, and an anisotropic GP for F4.** The GP's picks sat next to a failed point or predicted nothing above the best, so where a step stopped working I halved it or fitted a curve along it. Once F4's line was used up, a GP with a length scale for each input predicted the last three points better than the plain one (errors of 0.14, 0.49 and 0.50 against 0.83, 0.59 and 0.57) and showed that x1 and x2 matter most. These picks are low confidence, and the anisotropic GP was overconfident on one of the three points (5.9 standard deviations). In Week 13 a probe in a new direction gained 0.058 on F4, to 0.7141.
 
-## HYPERPARAMETER OPTIMISATION
+## Hyperparameter optimisation
 | Function | Kernel (starting length scale) | UCB kappa | EI xi | Why these values |
 |---|---|---|---|---|
 | F1 (raw models) | RBF (0.3) + white noise | 0.1 | 0.1 | Kappa: a Week 5 test. F1 was flat and UCB kept picking the same point whatever the kernel or kappa, so I tried kappa 0.1 (near pure exploitation) with RBF plus white noise, and the pick did not change. Reason for xi not recorded |
@@ -115,7 +115,7 @@ Each decision below comes with the evidence and what it cost. The week is when t
 - **Local search box of ±0.04 (Week 7, used for F3 and F4):** I chose those two functions because their best regions already seemed to be found. The size was a first judgement of "close to the best point". It is about a sixth of the typical spacing between my points (about 0.24), so it stays local without reaching other sampled points. I narrowed it to ±0.02 in Week 8 after several functions dropped sharply when they moved away from their best.
 - **Later GP refits** used a floor of 0.05 on the length scale and normalised outputs, after the earlier fits for F2 and F5 collapsed into spiky kernels.
 
-## RESULTS
+## Results
 All eight functions improved over the thirteen weeks. Every function set a new best in Week 8, five of the eight did so again in Week 9, three did in Week 10, six did in Week 11, four did in Week 12, and five did on the final query in Week 13 (F2, F4, F5, F7 and F8). Of the 46 new bests over the whole project, 31 came from Week 8 onwards.
 
 **Best input and output found for each function** (inputs are in the submission format x1-x2-...-xn):
@@ -166,7 +166,7 @@ What the results show:
 
 For my reflection on the whole project (how the approach changed, why, and what I would do differently), see the [Retrospective on the BBO capstone project](Retrospective%20on%20the%20BBO%20capstone%20project.md). For the strategies that worked, the ones that failed and what I learnt from my peers, see [Successful optimisation strategies](Successful%20optimisation%20strategies.md). A short version of the whole project is in my [presentation](Presentation.md) ([PDF](BBO%20capstone%20project%20presentation%20-%20Hilton.pdf)).
 
-## CHALLENGES AND KEY INSIGHTS
+## Challenges and key insights
 **Challenges**
 - **One query per function per week.** There was little room to test an idea, so methods were checked on past data and with small steps before use.
 - **F1's extreme scale.** Outputs ranged from 1e-245 to 1e-3, so models fitted to the raw values could not tell points apart. It took until Week 7 to model the logarithm, and a pattern search later.
@@ -182,7 +182,7 @@ For my reflection on the whole project (how the approach changed, why, and what 
 
 The two write-ups, [Retrospective on the BBO capstone project](Retrospective%20on%20the%20BBO%20capstone%20project.md) and [Successful optimisation strategies](Successful%20optimisation%20strategies.md), give the full story.
 
-## HOW TO RUN IT
+## How to run it
 Tested with Python 3.12. Clone the repository and install the requirements:
 
 ```bash
@@ -208,7 +208,7 @@ Then, from the repository root:
 | `prediction_check.py` | Predicts a week's query from the data before it and gives the error in standard deviations | The prediction log (reproduces the Week 13 entries) |
 | `check_queries.py` | Checks a week's queries for repeats, range and distance from the best | Before each submission |
 
-## REPOSITORY CONTENTS
+## Repository contents
 - `data/`: the weekly data, one folder per week (`Week_1` to `Week_13`), each with a folder per function holding `updated_inputs.npy` and `updated_outputs.npy`.
 - `src/`: the code. `pipeline.py` is the weekly method (fit, predict, score, propose). `config.py` holds the settings for each function. `data_io.py` and `paths.py` load the data without any machine-specific paths. `surrogate_models.py` and `plotting_utils.py` hold the Random Forest, log-space and acquisition helpers. `figures.py` rebuilds the figures.
 - `notebooks/`: `01_bayesian_optimisation_pipeline.ipynb` (the method) and `02_results_and_figures.ipynb` (the results), both with their outputs saved.
@@ -223,5 +223,5 @@ Then, from the repository root:
 - `BBO capstone project presentation - Hilton.pdf`: my presentation, written into the course template. `Presentation.md` has the same text in a readable form.
 - `LICENSE`: the MIT licence for the code.
 
-## LICENCE
+## Licence
 The code in this repository is released under the MIT licence (see `LICENSE`). The initial data points were supplied by the course and remain the course's material, so the licence does not cover them.
