@@ -1,4 +1,6 @@
-# Bayesian Optimisation of Eight Black-Box Functions
+# Imperial College London: ML and AI, BBO Capstone Project
+
+Bayesian optimisation of eight black-box functions.
 
 ## Non-technical explanation
 Imagine eight mystery machines. For each one you pick the settings on a few dials, between two and eight of them, and the machine reports a score. The aim is to find the settings that give the highest score, but you only get one try per machine each week, so every try has to count. This project uses machine learning to study the results so far and suggest which settings to try next, balancing careful tweaks to the best settings with bold tests of unfamiliar ones. Over thirteen weeks the best score for every machine improved, in some cases several times over.
@@ -186,8 +188,8 @@ The two write-ups, [Retrospective on the BBO capstone project](Retrospective%20o
 Tested with Python 3.12. Clone the repository and install the requirements:
 
 ```bash
-git clone https://github.com/HP014/Machine-Learning-Capstone-Project.git
-cd Machine-Learning-Capstone-Project
+git clone https://github.com/HP014/Imperial-College-London-ML-and-AI-BBO-Capstone-Project.git
+cd Imperial-College-London-ML-and-AI-BBO-Capstone-Project
 pip install -r requirements.txt
 ```
 

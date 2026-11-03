@@ -29,16 +29,16 @@ Bayesian optimisation is a well-established method for problems where each evalu
 
 ## Sources
 
-- Breiman, L. (2001). Random Forests. *Machine Learning*, 45(1), 5-32.
-- Harris, C. R. et al. (2020). Array programming with NumPy. *Nature*, 585, 357-362.
-- Hooke, R. and Jeeves, T. A. (1961). "Direct Search" solution of numerical and statistical problems. *Journal of the ACM*, 8(2), 212-229.
-- Hunter, J. D. (2007). Matplotlib: A 2D graphics environment. *Computing in Science & Engineering*, 9(3), 90-95.
-- Jones, D. R., Schonlau, M. and Welch, W. J. (1998). Efficient Global Optimization of Expensive Black-Box Functions. *Journal of Global Optimization*, 13(4), 455-492.
-- Pedregosa, F. et al. (2011). Scikit-learn: Machine Learning in Python. *Journal of Machine Learning Research*, 12, 2825-2830.
+- Breiman, L. (2001). Random Forests. *Machine Learning*.
+- Harris, C. R. et al. (2020). Array programming with NumPy. *Nature*.
+- Hooke, R. and Jeeves, T. A. (1961). "Direct Search" solution of numerical and statistical problems. *Journal of the ACM*.
+- Hunter, J. D. (2007). Matplotlib: A 2D graphics environment. *Computing in Science & Engineering*.
+- Jones, D. R., Schonlau, M. and Welch, W. J. (1998). Efficient Global Optimization of Expensive Black-Box Functions. *Journal of Global Optimization*.
+- Pedregosa, F. et al. (2011). Scikit-learn: Machine Learning in Python. *Journal of Machine Learning Research*.
 - Rasmussen, C. E. and Williams, C. K. I. (2006). *Gaussian Processes for Machine Learning*. MIT Press. Free online at https://gaussianprocess.org/gpml/
-- Shahriari, B., Swersky, K., Wang, Z., Adams, R. P. and de Freitas, N. (2016). Taking the Human Out of the Loop: A Review of Bayesian Optimization. *Proceedings of the IEEE*, 104(1), 148-175.
-- Srinivas, N., Krause, A., Kakade, S. M. and Seeger, M. (2010). Gaussian Process Optimization in the Bandit Setting: No Regret and Experimental Design. *Proceedings of the 27th International Conference on Machine Learning (ICML)*, 1015-1022.
-- Virtanen, P. et al. (2020). SciPy 1.0: fundamental algorithms for scientific computing in Python. *Nature Methods*, 17, 261-272.
+- Shahriari, B., Swersky, K., Wang, Z., Adams, R. P. and de Freitas, N. (2016). Taking the Human Out of the Loop: A Review of Bayesian Optimization. *Proceedings of the IEEE*.
+- Srinivas, N., Krause, A., Kakade, S. M. and Seeger, M. (2010). Gaussian Process Optimization in the Bandit Setting: No Regret and Experimental Design. *International Conference on Machine Learning (ICML)*.
+- Virtanen, P. et al. (2020). SciPy 1.0: fundamental algorithms for scientific computing in Python. *Nature Methods*.
 
 ## What I would consult next
 
@@ -48,6 +48,6 @@ Bayesian optimisation is a well-established method for problems where each evalu
 - **Regret analysis papers and recent surveys,** to understand the theoretical guarantees of my approach.
 
 Further sources:
-- Balandat, M. et al. (2020). BoTorch: A Framework for Efficient Monte-Carlo Bayesian Optimization. *Advances in Neural Information Processing Systems*, 33.
-- Hennig, P. and Schuler, C. J. (2012). Entropy Search for Information-Efficient Global Optimization. *Journal of Machine Learning Research*, 13, 1809-1837.
-- Hernandez-Lobato, J. M., Hoffman, M. W. and Ghahramani, Z. (2014). Predictive Entropy Search for Efficient Global Optimization of Black-box Functions. *Advances in Neural Information Processing Systems*, 27.
+- Balandat, M. et al. (2020). BoTorch: A Framework for Efficient Monte-Carlo Bayesian Optimization. *Advances in Neural Information Processing Systems*.
+- Hennig, P. and Schuler, C. J. (2012). Entropy Search for Information-Efficient Global Optimization. *Journal of Machine Learning Research*.
+- Hernandez-Lobato, J. M., Hoffman, M. W. and Ghahramani, Z. (2014). Predictive Entropy Search for Efficient Global Optimization of Black-box Functions. *Advances in Neural Information Processing Systems*.
